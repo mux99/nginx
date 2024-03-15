@@ -4049,7 +4049,7 @@ ngx_http_core_listen(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
         }
 #endif
 
-#if (NGX_HAVE_MPTCP)
+#if (NGX_LINUX)
         if (ngx_strcmp(value[n].data, "mptcp") == 0) {
             lsopt.protocol = IPPROTO_MPTCP;
             continue;

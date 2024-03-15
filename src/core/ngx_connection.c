@@ -488,7 +488,7 @@ ngx_open_listening_sockets(ngx_cycle_t *cycle)
                 continue;
             }
 
-#if (NGX_HAVE_MPTCP)
+#if (NGX_LINUX)
             s = (ngx_socket_t) -1;
             if (ls[i].protocol > 0)
                 s = ngx_socket(ls[i].sockaddr->sa_family, ls[i].type,
