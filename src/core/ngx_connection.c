@@ -78,6 +78,7 @@ ngx_create_listening(ngx_conf_t *cf, struct sockaddr *sockaddr,
 
     ls->fd = (ngx_socket_t) -1;
     ls->type = SOCK_STREAM;
+    ls->protocol = 0;
 
     ls->backlog = NGX_LISTEN_BACKLOG;
     ls->rcvbuf = -1;
@@ -487,8 +488,12 @@ ngx_open_listening_sockets(ngx_cycle_t *cycle)
                 continue;
             }
 
+#if (NGX_HAVE_MPTCP)
+            s = ngx_socket(ls[i].sockaddr->sa_family, ls[i].type,
+                            ls[i].protocol);
+#else
             s = ngx_socket(ls[i].sockaddr->sa_family, ls[i].type, 0);
-
+#endif
             if (s == (ngx_socket_t) -1) {
                 ngx_log_error(NGX_LOG_EMERG, log, ngx_socket_errno,
                               ngx_socket_n " %V failed", &ls[i].addr_text);
