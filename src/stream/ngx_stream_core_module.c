@@ -654,6 +654,13 @@ ngx_stream_core_listen(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
         }
 #endif
 
+#if (NGX_LINUX)
+        if (ngx_strcmp(value[n].data, "mptcp") == 0) {
+            lsopt.protocol = IPPROTO_MPTCP;
+            continue;
+        }
+#endif
+
         if (ngx_strncmp(value[i].data, "backlog=", 8) == 0) {
             ls->backlog = ngx_atoi(value[i].data + 8, value[i].len - 8);
             ls->bind = 1;
