@@ -78,7 +78,6 @@ ngx_create_listening(ngx_conf_t *cf, struct sockaddr *sockaddr,
 
     ls->fd = (ngx_socket_t) -1;
     ls->type = SOCK_STREAM;
-    ls->protocol = 0;
 
     ls->backlog = NGX_LISTEN_BACKLOG;
     ls->rcvbuf = -1;
